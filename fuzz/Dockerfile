@@ -9,4 +9,4 @@ COPY in_corpus /target/in_corpus
 
 WORKDIR /target
 
-CMD [ "env", "AFL_SKIP_BIN_CHECK=1", "afl-fuzz", "-n", "-i", "in_corpus", "-o", "out", "--", "python3", "fuzz_target.py" ]
+CMD [ "env", "AFL_SKIP_BIN_CHECK=1", "afl-fuzz", "-n", "-i", "in_corpus", "-o", "-V", "60", "out", "--", "python3", "fuzz_target.py" ]

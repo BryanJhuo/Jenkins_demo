@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh '''
                   docker build -t afl-python-fuzz ./fuzz
-                  timeout 30s docker run --rm afl-python-fuzz
+                docker run --rm afl-python-fuzz
                 '''
             }
         }
