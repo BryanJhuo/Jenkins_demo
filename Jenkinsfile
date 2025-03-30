@@ -16,7 +16,7 @@ pipeline {
                 sh '''
                   echo "[🧪 Unit Test Started...]"
                   pip install -r requirements.txt || pip install pytest
-                  pytest
+                  PYTHONPATH=src pytest
                 '''
             }
         }
