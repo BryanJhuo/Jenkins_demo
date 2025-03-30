@@ -1,4 +1,5 @@
 import sys
+import time
 
 def risky_logic(data: str):
     if "boom" in data:
@@ -13,7 +14,8 @@ def risky_logic(data: str):
             raise OverflowError("🚨 The Values is too large")
     except ValueError:
         pass
-
+    
+    time.sleep(0,1)
     return "OK"
 
 def main():
