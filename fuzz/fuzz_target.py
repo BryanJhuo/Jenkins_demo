@@ -15,7 +15,7 @@ def risky_logic(data: str):
     except ValueError:
         pass
     
-    time.sleep(0,1)
+    time.sleep(0.1)
     return "OK"
 
 def main():
