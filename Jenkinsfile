@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh '''
                   echo "[🔥 Fuzzing Started...]"
-                  docker build -t local-fuzz ./fuzz
+                  docker build -t local-fuzz -f fuzz/Dockerfile .
                   docker run --rm local-fuzz
                 '''
             }
