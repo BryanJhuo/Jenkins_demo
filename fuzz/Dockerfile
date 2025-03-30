@@ -1,12 +1,12 @@
-FROM gcr.io/oss-fuzz-base/base-builder-python
+FROM aflplusplus/aflplusplus
 
-RUN pip3 install atheris
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    pip3 install --upgrade pip
 
-COPY src /app
-COPY fuzz/fuzz_calc.py /app
+COPY fuzz_target.py /target/
+COPY in_corpus /target/in_corpus
 
-WORKDIR /app
+WORKDIR /target
 
-# RUN pip3 install .
-
-CMD [ "python3", "fuzz_calc.py"]
+CMD [ "afl-fuzz", "-i", "in_corpus", "-o", "out", "--", "python3", "fuzz_target.py" ]

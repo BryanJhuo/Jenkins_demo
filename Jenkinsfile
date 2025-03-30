@@ -21,12 +21,11 @@ pipeline {
             }
         }
 
-        stage('Fuzz Test') {
+        stage('Fuzz Test (AFL++ Python)') {
             steps {
                 sh '''
-                  echo "[🔥 Fuzzing Started...]"
-                  docker build -t local-fuzz -f fuzz/Dockerfile .
-                  docker run --rm local-fuzz
+                  docker build -t afl-python-fuzz ./fuzz
+                  timeout 30s docker run --rm afl-python-fuzz
                 '''
             }
         }
