@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM gcr.io/oss-fuzz-base/base-builder-python
 
 RUN pip install atheris
 
