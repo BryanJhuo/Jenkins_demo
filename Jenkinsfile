@@ -9,9 +9,12 @@ pipeline {
         }
 
         stage('Unit Tests') {
+            agent {
+                docker { image 'python:3.12'}
+            }
             steps {
                 sh '''
-                  echo "[🔥 Unit Test Started...]"
+                  echo "[🧪 Unit Test Started...]"
                   pip install -r requirements.txt || pip install pytest
                   pytest
                 '''
