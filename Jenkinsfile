@@ -1,21 +1,30 @@
 pipeline {
-    agent {
-        docker { image 'python:3.12'}
-    }
+    agent any
 
     stages {
-        stage('Install Dependencies') {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/BryanJhuo/Jenkins_demo.git', branch: 'main'
+            }
+        }
+
+        stage('Unit Tests') {
             steps {
                 sh '''
-                  pip install --upgrade pip
-                  pip install pytest
+                  echo "[🔥 Unit Test Started...]"
+                  pip install -r requirements.txt || pip install pytest
+                  pytest
                 '''
             }
         }
 
-        stage('Run Tests') {
+        stage('Fuzz Test') {
             steps {
-                sh 'pytest'
+                sh '''
+                  echo "[🔥 Fuzzing Started...]"
+                  docker build -t local-fuzz ./fuzz
+                  docker run --rm local-fuzz
+                '''
             }
         }
     }
