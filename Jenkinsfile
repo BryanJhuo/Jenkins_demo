@@ -8,24 +8,18 @@ pipeline {
             }
         }
 
-        stage('Unit Tests') {
-            agent {
-                docker { image 'python:3.12'}
-            }
+        stage('Build OSS-Fuzz image') {
             steps {
                 sh '''
-                  echo "[🧪 Unit Test Started...]"
-                  pip install -r requirements.txt || pip install pytest
-                  PYTHONPATH=src pytest
+                  docker build -t ossfuzz-demo -f fuzz/Dockerfile .
                 '''
             }
         }
 
-        stage('Fuzz Test (AFL++ Python)') {
+        stage('Run local Fuzzing') {
             steps {
                 sh '''
-                  docker build -t afl-python-fuzz ./fuzz
-                docker run --rm afl-python-fuzz
+                  docker run --rm ossfuzz-demo
                 '''
             }
         }
